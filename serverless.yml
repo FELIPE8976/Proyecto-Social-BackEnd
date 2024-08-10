@@ -1,0 +1,201 @@
+service: mi-api-serverless
+
+provider:
+  name: aws
+  runtime: python3.9
+  stage: dev
+  region: us-east-1
+  environment: # Variables de entorno a nivel de servicio
+    DB_NAME: ""
+    DB_USER: ""
+    DB_PASS: ""
+    DB_HOST: ""
+    DB_PORT: ""
+    SECRET_KEY: ""
+    S3_BUCKET_NAME: ""
+    S3_BASE_URL: ""
+    S3_ACCESS_KEY_ID : ""
+    S3_ACCESS_KEY : ""
+plugins:
+  - serverless-offline
+  - serverless-python-requirements
+
+custom:
+  pythonRequirements:
+    dockerizePip: non-linux
+
+functions:
+#  getUser:
+#    handler: handler.get_user
+#    events:
+#      - http:
+#          path: users/{id}
+#          method: get
+#
+#  getAllUser:
+#    handler: handler.get_all_user
+#    events:
+#      - http:
+#          path: users
+#          method: get
+#
+  create_new_benefitiary_user:
+    handler: handler.create_user_beneficiary
+    events:
+      - http:
+          path: users/create-beneficiary
+          method: post
+          cors: true
+
+#  createLoginUser:
+#    handler: handler.create_login_user
+#    events:
+#      - http:
+#          path: login/users
+#          method: post
+#          cors: true
+
+#  createUser:
+#    handler: handler.create_user
+#    events:
+#      - http:
+#          path: login/create-user
+#          method: post
+#          cors: true
+
+  login:
+    handler: handler.login
+    events:
+      - http:
+          path: login
+          method: post
+          cors: true
+
+  getLoginName:
+    handler: handler.get_name_by_personal_id
+    events:
+      - http:
+          path: login/name/{id}
+          method: get
+          cors: true
+
+  # Function to get referral cause, support requests and observations of a beneficiary by his id
+  getAdditionalInformationById:
+      handler: handler.get_additional_information_by_id
+      events:
+        - http:
+            path: users/additional-info/{id}
+            method: get
+
+  # Function to update the information of a foundation worker by his id
+  updateFoundationWorkerById:
+      handler: handler.update_foundation_worker_by_id
+      events:
+        - http:
+            path: users/update-worker/{id}
+            method: patch
+            cors: true
+
+## Function to get the clinical history of a user by their personal ID
+#  getClinicalHistoryById:
+#      handler: handler.get_clinical_history_by_id
+#      events:
+#        - http:
+#            path: users/clinical-history/{id}
+#            method: get
+#            cors: true
+
+# Function to get all beneficiaries parcial information 
+  getBeneficiariesPartialInformation:
+      handler: handler.get_beneficiariesShortInfo
+      events:
+        - http:
+            path: users/beneficiaries-short-info
+            method: get
+            cors: true
+
+            
+# Function to update the information of a beneficary by his id
+  updateBeneficiaryById:
+      handler: handler.update_beneficiary_by_id
+      events:
+        - http:
+            path: users/update-beneficiary
+            method: patch
+            cors: true
+
+## Function to delete the additional information of a beneficary by his id
+#  deleteAdditionalInformationById:
+#      handler: handler.delete_additional_information_by_id
+#      events:
+#        - http:
+#            path: users/delete-additional-info/{id}
+#            method: delete
+#            cors: true
+
+# Function to add the additional information of a beneficary by his id
+  addAdditionalInformationById:
+      handler: handler.add_additional_information_by_id
+      events:
+        - http:
+            path: users/add-additional-info/
+            method: post
+            cors: true
+          
+
+# Function to get the information of a family member by his unique id
+  getFamilyMemberById:
+      handler: handler.get_family_member_user_by_unique_id
+      events:
+        - http:
+            path: users/family-member/{id}
+            method: get
+            cors: true
+
+  getFamilyFamilyMemberUser:
+      handler: handler.get_family_group_user
+      events:
+        - http:
+            path: users/family-members/{id}
+            method: get
+            cors: true
+
+#  createFamilyMember:
+#    handler: handler.create_family_member_user
+#    events:
+#      - http:
+#          path: users/create-family-member
+#          method: post
+#          cors: true
+#
+#  updateFamilyMember:
+#      handler: handler.update_family_member_user
+#      events:
+#        - http:
+#            path: users/update-family-member/
+#            method: patch
+#            cors: true
+
+#  deleteFamilyMember:
+#      handler: handler.delete_family_member_user
+#      events:
+#        - http:
+#            path: users/delete-family-member/{id}
+#            method: delete
+#            cors: true
+
+  uploadProfileImage:
+      handler: handler.upload_profile_image
+      events:
+        - http:
+            path: users/upload-image
+            method: post
+            cors: true
+
+  getNameAndImage:
+    handler: handler.get_name_and_image_by_personal_id
+    events:
+      - http:
+          path: users/get-beneficiary-name-image/{id}
+          method: get
+          cors: true

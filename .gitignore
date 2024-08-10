@@ -1,0 +1,42 @@
+# Distribution / packaging
+.Python
+node_modules
+venv/
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+.env
+idea/
+
+# Excluir carpetas y archivos generados por npm y otros gestores de paquetes
+
+# Serverless directories
+.serverless
+
+# Python-specific
+__pycache__/
+*.py[cod]
+
+# Configuration files
+*.env
+
+# Log and temporary files
+*.log
+*.tmp
+
+# Environment-specific files
+.DS_Store
+/node_modules/
+node_modules/

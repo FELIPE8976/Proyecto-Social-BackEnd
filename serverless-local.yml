@@ -1,0 +1,60 @@
+service: mi-api-serverless
+
+provider:
+  name: aws
+  runtime: python3.9
+  stage: dev
+  region: us-east-1
+
+
+plugins:
+  - serverless-offline
+  - serverless-python-requirements
+
+custom:
+  pythonRequirements:
+    dockerizePip: non-linux
+
+functions:
+#  getUser:
+#    handler: handler.get_user
+#    events:
+#      - http:
+#          path: users/{id}
+#          method: get
+#
+#  getAllUser:
+#    handler: handler.get_all_user
+#    events:
+#      - http:
+#          path: users
+#          method: get
+#
+#  createUser:
+#    handler: handler.create_user
+#    events:
+#      - http:
+#          path: users
+#          method: post
+
+  createLoginUser:
+    handler: handler.create_login_user
+    events:
+      - http:
+          path: login/users
+          method: post
+
+  login:
+    handler: handler.login
+    events:
+      - http:
+          path: login
+          method: post
+
+  getLoginName:
+    handler: handler.get_name_by_personal_id
+    events:
+      - http:
+          path: login/name/{id}
+          method: get
+          cors: true
