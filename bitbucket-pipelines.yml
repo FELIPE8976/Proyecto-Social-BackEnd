@@ -1,0 +1,52 @@
+pipelines:
+  branches:
+    develop:
+      - step:
+          name: Build
+          image: python:3.8
+          script:
+            # Instalar dependencias
+            - pip install -r requirements.txt
+
+            # Compilar el código
+            - python -m compileall .
+    feature/*:
+      - step:
+          name: Build
+          image: python:3.8
+          script:
+            # Instalar dependencias
+            - pip install -r requirements.txt
+
+            # Compilar el código
+            - python -m compileall .
+    
+
+      
+
+  custom:
+    Build and Deploy:
+      - step:
+            caches:
+              - node
+            name: Build and Deploy
+            image: metacollective/serverless_ci
+            script:              
+              # Configurar las variables de Python
+              - echo "DB_NAME=$DB_NAME" >> .env
+              - echo "DB_USER=$DB_USER" >> .env
+              - echo "DB_PASS=$DB_PASS" >> .env
+              - echo "DB_HOST=$DB_HOST" >> .env
+              - echo "DB_PORT=$DB_PORT" >> .env
+              - echo "SECRET_KEY=$SECRET_KEY" >> .env
+
+              # Desplegar a AWS Lambda usando Serverless
+              - npm update -g npm
+              - npm install
+              - mkdir -p ~/.aws
+              - echo "[default]" > ~/.aws/credentials
+              - echo $AWS_ACCESS_KEY_ID > ~/.aws/credentials
+              - echo $AWS_SECRET_ACCESS_KEY >> ~/.aws/credentials
+              - echo $AWS_REGION >> ~/.aws/config
+              - serverless config credentials --provider aws --key ${AWS_ACCESS_KEY_ID} --secret ${AWS_SECRET_ACCESS_KEY}
+              - serverless deploy
