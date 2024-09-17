@@ -7,7 +7,6 @@ provider:
   runtime: python3.9
   stage: dev
   region: us-east-2
-  region: us-east-2
   environment: # Variables de entorno a nivel de servicio
     DB_NAME: "CasaColombia"
     DB_USER: "administrador"
