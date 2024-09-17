@@ -7,6 +7,7 @@ provider:
   runtime: python3.9
   stage: dev
   region: us-east-2
+  region: us-east-2
   environment: # Variables de entorno a nivel de servicio
     DB_NAME: "CasaColombia"
     DB_USER: "administrador"
@@ -206,5 +207,14 @@ functions:
     events:
       - http:
           path: users/get-beneficiary-name-image/{id}
+          method: get
+          cors: true
+
+  
+  getDepartments:
+    handler: handler.get_departments_list
+    events:
+      - http:
+          path: users/get-departments-list
           method: get
           cors: true

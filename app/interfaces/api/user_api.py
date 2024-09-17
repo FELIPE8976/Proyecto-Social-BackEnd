@@ -608,3 +608,27 @@ def get_beneficiary_name_image_api(event, context):
                 "Access-Control-Allow-Origin": "*"
             }
         }
+    
+
+@token_required
+def get_departments_list_api( event, context):
+    with app.app_context():
+        user_repository = SqlUserRepository()
+        user_service = UserService(user_repository)
+        departments = user_service.get_all_departments()
+
+        departments_list = []
+        for department in departments:
+            departments_list.append({
+                "department_id": department.department_id,
+                "name": department.name,
+            })
+
+        return {
+        "statusCode": 200,
+        "body": json.dumps(departments_list),
+        "headers": {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*"
+        }
+    }

@@ -1,7 +1,7 @@
 import json
 
 from app.common.auth import token_required
-from app.interfaces.api.user_api import  get_user_api, get_all_users_api, create_user_beneficiary_api, get_additional_information_by_id_api, update_foundation_worker_by_id_api, get_clinical_history_by_id_api, update_beneficiary_by_id_api, get_beneficiariesShortInfo_api, delete_additional_information_by_id_api, update_foundation_worker_by_id_api, add_additional_information_by_id_api, get_family_member_user_by_unique_id_api, get_family_group_user_api, create_family_member_user_api, update_family_member_user_api, delete_family_member_user_api, upload_image_s3, get_beneficiary_name_image_api
+from app.interfaces.api.user_api import  get_user_api, get_all_users_api, create_user_beneficiary_api, get_additional_information_by_id_api, update_foundation_worker_by_id_api, get_clinical_history_by_id_api, update_beneficiary_by_id_api, get_beneficiariesShortInfo_api, delete_additional_information_by_id_api, update_foundation_worker_by_id_api, add_additional_information_by_id_api, get_family_member_user_by_unique_id_api, get_family_group_user_api, create_family_member_user_api, update_family_member_user_api, delete_family_member_user_api, upload_image_s3, get_beneficiary_name_image_api, get_departments_list_api
 from app.interfaces.api.login_api import create_login_user_api, login_api, get_name_by_personal_id_api
 
 
@@ -122,4 +122,11 @@ def upload_profile_image(event, context):
 
 def get_name_and_image_by_personal_id(event, context):
     response = token_required(get_beneficiary_name_image_api)(event, context)
+    return response
+
+
+# aqui empezamos ota vez
+
+def get_departments_list(event, context):
+    response = token_required(get_departments_list_api)(event, context)
     return response

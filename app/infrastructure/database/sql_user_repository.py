@@ -10,6 +10,7 @@ from boto3.s3.transfer import TransferConfig
 from app.common.config import Config
 from app.domain.entities.familyMember import FamilyMember
 from app.domain.entities.userAccount import UserAccount
+from app.domain.entities.department import Department
 from app.domain.repositories.user_repository import UserRepository
 from enum import Enum
 
@@ -472,3 +473,22 @@ class SqlUserRepository(UserRepository):
                 'full_name': user_data[0],
                 'profile_image_link': user_data[1]}
         return None
+    
+
+
+    def get_all_departments(self):
+        conn = self.get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute('SELECT * FROM user.departments')
+        departments_data = cursor.fetchall()
+        cursor.close()
+        conn.close()
+
+        departments = []
+        for department_data in departments_data:
+            departments.append(Department(
+                department_id=department_data[0],
+                name=department_data[1]
+            ))
+
+        return departments
