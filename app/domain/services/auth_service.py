@@ -22,7 +22,7 @@ class AuthService:
         if login_user and bcrypt.checkpw(password.encode('utf-8'), login_user.password.encode('utf-8')):
             token = jwt.encode({
                 'user': login_user.personal_id,
-                'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=30)
+                'exp': datetime.datetime.utc() + datetime.timedelta(minutes=30)
             }, self.secret_key, algorithm="HS256")
             return {'token': token}
         return {'error': 'Invalid credentials'}

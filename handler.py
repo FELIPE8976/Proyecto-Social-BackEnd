@@ -16,7 +16,7 @@ def get_all_user(event, context):
 
 
 def create_user_beneficiary(event, context):
-    response = token_required(create_user_beneficiary_api)(event, context)
+    response = create_user_beneficiary_api(event, context)
     return response
 
 

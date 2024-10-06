@@ -92,36 +92,37 @@ class SqlUserRepository(UserRepository):
             entity_organization, total_monthly_income,
             referral_cause, support_request, observations, profile_image_link, status_id, creation_date
             ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)'''
-            cursor.execute('SELECT identification_type_id FROM "user"."identification_type" WHERE description = %s', (user.identification_type_id,))
-            iti = cursor.fetchone()
-            cursor.execute('SELECT district_id FROM "user"."district" WHERE district_name = %s', (user.district_id,))
-            dist = cursor.fetchone()
-            cursor.execute('SELECT socioeconomic_status_id FROM "user"."socioeconomic_status" WHERE socioeconomic_status_value = %s', (user.socioeconomic_status_id,))
-            sei = cursor.fetchone()
+            # cursor.execute('SELECT identification_type_id FROM "user"."identification_type" WHERE description = %s', (user.identification_type_id,))
+            # iti = cursor.fetchone()
+            #cursor.execute('SELECT district_id FROM "user"."district" WHERE district_name = %s', (user.district_id,))
+            #dist = cursor.fetchone()
+            # cursor.execute('SELECT socioeconomic_status_id FROM "user"."socioeconomic_status" WHERE socioeconomic_status_value = %s', (user.socioeconomic_status_id,))
+            # sei = cursor.fetchone()
             cursor.execute('SELECT status_id FROM "user"."status" WHERE status_name = %s', ("active",))
             status_id = cursor.fetchone()
-            values1 = ( str(user.user_id), user.personal_id, user.institution_name, str(iti[0]),
+            values1 = ( str(user.user_id), user.personal_id, user.institution_name, str(user.identification_type_id),
             user.health_entity, user.interviewed_person, user.relationship,
-            user.interviewed_person_id, user.address, str(dist[0]), str(sei[0]), user.referred_by,
+            user.interviewed_person_id, user.address, str(user.district_id), str(user.socioeconomic_status_id), user.referred_by,
             user.referral_address, user.referral_phones,
             user.entity_organization, user.total_monthly_income, user.referral_cause, user.support_request, user.observations, "aquivalaimagen", str(status_id[0]), datetime.now() )
             cursor.execute(query1, values1)
             for person in user.family_members:
                 fuuid = uuid.uuid4()
-                query2 = 'INSERT INTO "user"."family_member" (family_member_id, personal_id, full_name, age, relationship, education_level, occupation, monthly_income) VALUES ( %s, %s, %s, %s, %s, %s, %s, %s )'
+                query2 = 'INSERT INTO "user"."family_member" (family_member_id, personal_id, full_name, age, relationship, education_level, occupation, monthly_income, document_number) VALUES ( %s, %s, %s, %s, %s, %s, %s, %s, %s )'
                 
                 values2 = (
                     str(fuuid), str(user.personal_id), person['full_name'], person['age'], person['relationship'], person['education_level'],
-                    person['occupation'], person['monthly_income']
+                    person['occupation'], person['monthly_income'],
+                    person['document_number']
                 )
                 cursor.execute(query2, values2)
-            for housing in user.housing_type:
-                huuid = uuid.uuid4()
-                query3 = 'INSERT INTO "user"."housing_type" (housing_type_id, personal_id, description, rental_value_month, loan_value_month, bank) VALUES ( %s, %s, %s, %s, %s, %s )'
-                values3 = (
-                    str(huuid), str(user.personal_id), housing['description'], housing['rental_value_month'], housing['loan_value_month'], housing['bank']
-                )
-                cursor.execute(query3, values3)
+            housing = user.housing_type
+            huuid = uuid.uuid4()
+            query3 = 'INSERT INTO "user"."housing_type" (housing_type_id, personal_id, description, rental_value_month, loan_value_month, bank) VALUES ( %s, %s, %s, %s, %s, %s )'
+            values3 = (
+                str(huuid), str(user.personal_id), housing['description'], housing['rental_value_month'], housing['loan_value_month'], housing['bank']
+            )
+            cursor.execute(query3, values3)
             conn.commit()
         except psycopg2.Error as e:
             conn.rollback()

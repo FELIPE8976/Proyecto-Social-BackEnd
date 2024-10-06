@@ -93,7 +93,7 @@ def create_user_api(event, context):
                 "body": json.dumps({"message": str(e)})
             }
 
-@token_required
+# @token_required
 def create_user_beneficiary_api(event, context):
 
     with app.app_context():

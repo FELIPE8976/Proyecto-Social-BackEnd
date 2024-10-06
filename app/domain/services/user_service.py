@@ -21,18 +21,19 @@ class UserService:
                  entity_organization, family_members, total_monthly_income,
                  referral_cause, support_request, observations):
         user_id = uuid.uuid4()
+
         new_user = UserAccount(
             user_id=user_id,
             personal_id=personal_id,
             institution_name=institution_name,
-            identification_type_id=identification_type_id,
+            identification_type_id=identification_type_id['identification_type_id'],
             health_entity=health_entity,
             interviewed_person=interviewed_person,
             relationship=relationship,
             interviewed_person_id=interviewed_person_id,
             address=address,
-            district_id=district_id,
-            socioeconomic_status_id=socioeconomic_status_id,
+            district_id=district_id['district_id'],
+            socioeconomic_status_id=socioeconomic_status_id['socioeconomic_status_id'],
             housing_type=housing_type,
             referred_by=referred_by,
             referral_address=referral_address,

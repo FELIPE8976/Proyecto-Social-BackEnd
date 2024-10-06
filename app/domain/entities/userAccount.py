@@ -44,7 +44,7 @@ class UserAccount:
             'address': self.address,
             'district_id': self.district_id,
             'socioeconomic_status_id': self.socioeconomic_status_id,
-            'housing_type': [housing.to_dict() for housing in self.housing_type] if self.housing_type else [],
+            'housing_type': self.housing_type,
             'referred_by': self.referred_by,
             'referral_address': self.referral_address,
             'referral_phones': self.referral_phones,

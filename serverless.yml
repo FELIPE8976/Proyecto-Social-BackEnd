@@ -1,5 +1,5 @@
 # "org" ensures this Service is used with the correct Serverless Framework Access Key.
-org: javeriana
+org: felipe8976
 service: mi-api-serverless
 
 provider:
@@ -56,7 +56,7 @@ functions:
       - http:
           path: users/create-beneficiary
           method: post
-          cors: true
+          cors: false
 
   #  createLoginUser:
   #    handler: handler.create_login_user
@@ -80,7 +80,7 @@ functions:
       - http:
           path: login
           method: post
-          cors: true
+          cors: false
 
   getLoginName:
     handler: handler.get_name_by_personal_id
@@ -88,7 +88,7 @@ functions:
       - http:
           path: login/name/{id}
           method: get
-          cors: true
+          cors: false
 
   # Function to get referral cause, support requests and observations of a beneficiary by his id
   getAdditionalInformationById:
@@ -105,7 +105,7 @@ functions:
       - http:
           path: users/update-worker/{id}
           method: patch
-          cors: true
+          cors: false
 
   ## Function to get the clinical history of a user by their personal ID
   #  getClinicalHistoryById:
@@ -123,7 +123,7 @@ functions:
       - http:
           path: users/beneficiaries-short-info
           method: get
-          cors: true
+          cors: false
 
   # Function to update the information of a beneficary by his id
   updateBeneficiaryById:
@@ -132,7 +132,7 @@ functions:
       - http:
           path: users/update-beneficiary
           method: patch
-          cors: true
+          cors: false
 
   ## Function to delete the additional information of a beneficary by his id
   #  deleteAdditionalInformationById:
@@ -150,7 +150,7 @@ functions:
       - http:
           path: users/add-additional-info/
           method: post
-          cors: true
+          cors: false
 
   # Function to get the information of a family member by his unique id
   getFamilyMemberById:
@@ -159,7 +159,7 @@ functions:
       - http:
           path: users/family-member/{id}
           method: get
-          cors: true
+          cors: false
 
   getFamilyFamilyMemberUser:
     handler: handler.get_family_group_user
@@ -167,7 +167,7 @@ functions:
       - http:
           path: users/family-members/{id}
           method: get
-          cors: true
+          cors: false
 
   #  createFamilyMember:
   #    handler: handler.create_family_member_user
@@ -199,7 +199,7 @@ functions:
       - http:
           path: users/upload-image
           method: post
-          cors: true
+          cors: false
 
   getNameAndImage:
     handler: handler.get_name_and_image_by_personal_id
@@ -207,4 +207,4 @@ functions:
       - http:
           path: users/get-beneficiary-name-image/{id}
           method: get
-          cors: true
+          cors: false

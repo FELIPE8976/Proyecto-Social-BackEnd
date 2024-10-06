@@ -28,7 +28,7 @@ def login_api(data):
             "Access-Control-Allow-Origin": "*"})
 
 
-@token_required
+#@token_required
 def create_login_user_api(event, context):
     with app.app_context():
         try:
