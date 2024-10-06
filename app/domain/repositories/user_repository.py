@@ -83,3 +83,7 @@ class UserRepository(ABC):
     @abstractmethod
     def get_beneficiary_name_image(self, personal_id):
         pass
+
+    @abstractmethod
+    def get_all_departments(self):
+        pass

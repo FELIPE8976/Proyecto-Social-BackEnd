@@ -208,3 +208,21 @@ functions:
           path: users/get-beneficiary-name-image/{id}
           method: get
           cors: false
+
+  
+  getDepartments:
+    handler: handler.get_departments_list
+    events:
+      - http:
+          path: users/get-departments-list
+          method: get
+          cors: false
+
+  
+  getDepartments:
+    handler: handler.get_departments_list
+    events:
+      - http:
+          path: users/get-departments-list
+          method: get
+          cors: true

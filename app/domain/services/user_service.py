@@ -105,3 +105,7 @@ class UserService:
 
     def get_beneficiary_name_image(self, personal_id):
         return self.user_repository.get_beneficiary_name_image(personal_id)
+    
+
+    def get_all_departments(self):
+        return self.user_repository.get_all_departments()
