@@ -1,17 +1,17 @@
 # "org" ensures this Service is used with the correct Serverless Framework Access Key.
-org: felipe8976
-service: mi-api-serverless
+org: javeriana
+service: Backend-casacolombia
 
 provider:
   name: aws
   runtime: python3.9
   stage: dev
-  region: us-east-2
+  region: us-east-1
   environment: # Variables de entorno a nivel de servicio
-    DB_NAME: "CasaColombia"
-    DB_USER: "administrador"
-    DB_PASS: "VoFi1PGKIYYogaG1N4t4"
-    DB_HOST: "casacolombia.cv08ycscoy6f.us-east-2.rds.amazonaws.com"
+    DB_NAME: "casacolombia"
+    DB_USER: "AdminCasa"
+    DB_PASS: "C3j47z0P0KWQxqNvuHc7"
+    DB_HOST: "fundacioncasacolombia.cri2602oy5c7.us-east-1.rds.amazonaws.com"
     DB_PORT: "5432"
     SECRET_KEY: ""
     S3_BUCKET_NAME: ""
@@ -56,7 +56,17 @@ functions:
       - http:
           path: users/create-beneficiary
           method: post
-          cors: false
+          cors:
+            origin: '*' # <-- Specify allowed origin
+            headers: # <-- Specify allowed headers
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+            allowCredentials: false
+
 
   #  createLoginUser:
   #    handler: handler.create_login_user
@@ -80,7 +90,16 @@ functions:
       - http:
           path: login
           method: post
-          cors: false
+          cors:
+            origin: '*' # <-- Specify allowed origin
+            headers: # <-- Specify allowed headers
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+            allowCredentials: false
 
   getLoginName:
     handler: handler.get_name_by_personal_id
@@ -88,7 +107,17 @@ functions:
       - http:
           path: login/name/{id}
           method: get
-          cors: false
+          cors:
+            origin: '*' # <-- Specify allowed origin
+            headers: # <-- Specify allowed headers
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+            allowCredentials: false
+
 
   # Function to get referral cause, support requests and observations of a beneficiary by his id
   getAdditionalInformationById:
@@ -97,6 +126,17 @@ functions:
       - http:
           path: users/additional-info/{id}
           method: get
+          cors:
+            origin: '*' # <-- Specify allowed origin
+            headers: # <-- Specify allowed headers
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+            allowCredentials: false
+
 
   # Function to update the information of a foundation worker by his id
   updateFoundationWorkerById:
@@ -105,7 +145,17 @@ functions:
       - http:
           path: users/update-worker/{id}
           method: patch
-          cors: false
+          cors:
+            origin: '*' # <-- Specify allowed origin
+            headers: # <-- Specify allowed headers
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+            allowCredentials: false
+
 
   ## Function to get the clinical history of a user by their personal ID
   #  getClinicalHistoryById:
@@ -123,7 +173,17 @@ functions:
       - http:
           path: users/beneficiaries-short-info
           method: get
-          cors: false
+          cors:
+            origin: '*' # <-- Specify allowed origin
+            headers: # <-- Specify allowed headers
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+            allowCredentials: false
+
 
   # Function to update the information of a beneficary by his id
   updateBeneficiaryById:
@@ -132,7 +192,17 @@ functions:
       - http:
           path: users/update-beneficiary
           method: patch
-          cors: false
+          cors:
+            origin: '*' # <-- Specify allowed origin
+            headers: # <-- Specify allowed headers
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+            allowCredentials: false
+
 
   ## Function to delete the additional information of a beneficary by his id
   #  deleteAdditionalInformationById:
@@ -150,7 +220,17 @@ functions:
       - http:
           path: users/add-additional-info/
           method: post
-          cors: false
+          cors:
+            origin: '*' # <-- Specify allowed origin
+            headers: # <-- Specify allowed headers
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+            allowCredentials: false
+
 
   # Function to get the information of a family member by his unique id
   getFamilyMemberById:
@@ -159,7 +239,17 @@ functions:
       - http:
           path: users/family-member/{id}
           method: get
-          cors: false
+          cors:
+            origin: '*' # <-- Specify allowed origin
+            headers: # <-- Specify allowed headers
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+            allowCredentials: false
+
 
   getFamilyFamilyMemberUser:
     handler: handler.get_family_group_user
@@ -167,7 +257,17 @@ functions:
       - http:
           path: users/family-members/{id}
           method: get
-          cors: false
+          cors:
+            origin: '*' # <-- Specify allowed origin
+            headers: # <-- Specify allowed headers
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+            allowCredentials: false
+
 
   #  createFamilyMember:
   #    handler: handler.create_family_member_user
@@ -199,7 +299,17 @@ functions:
       - http:
           path: users/upload-image
           method: post
-          cors: false
+          cors:
+            origin: '*' # <-- Specify allowed origin
+            headers: # <-- Specify allowed headers
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+            allowCredentials: false
+
 
   getNameAndImage:
     handler: handler.get_name_and_image_by_personal_id
@@ -207,7 +317,17 @@ functions:
       - http:
           path: users/get-beneficiary-name-image/{id}
           method: get
-          cors: false
+          cors:
+            origin: '*' # <-- Specify allowed origin
+            headers: # <-- Specify allowed headers
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+            allowCredentials: false
+
 
   
   getDepartments:
@@ -216,13 +336,13 @@ functions:
       - http:
           path: users/get-departments-list
           method: get
-          cors: false
-
-  
-  getDepartments:
-    handler: handler.get_departments_list
-    events:
-      - http:
-          path: users/get-departments-list
-          method: get
-          cors: true
+          cors:
+            origin: '*' # <-- Specify allowed origin
+            headers: # <-- Specify allowed headers
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+            allowCredentials: false
